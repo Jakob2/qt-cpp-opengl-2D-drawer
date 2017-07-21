@@ -21,6 +21,7 @@ void GlWidget::paintGL(){
     glColor3f(1,1,1);
     renderText(floor((float)WIDTH/4), HEIGHT-25, botLeftText);
     renderText(floor(((float)WIDTH/4)+(float)WIDTH/2.5), HEIGHT-25, botRightText);
+    topMenuText();
 }
 
 void GlWidget::resizeGL(int w, int h){
@@ -147,6 +148,17 @@ bool GlWidget::deleteAlert(){
           std::cout<<"Cancel"<<std::endl;
           return false;
           break;
+    }
+}
+
+void GlWidget::topMenuText(){
+    float x, y;
+    y = 25;
+    QString t;
+    for(float i=1; i<=(int)Sign::set.size(); i++){
+        t = QString::number(i);
+        x = ((float)WIDTH*(i/10))/(Grid::high+(-Grid::left+Grid::right))+50;
+        renderText(x,y,t);
     }
 }
 
