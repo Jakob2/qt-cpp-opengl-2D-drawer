@@ -60,14 +60,12 @@ void GlWidget::mouseMoveEvent(QMouseEvent *event){
         if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1){
             Sign::sign[0][floor(gridX/Grid::split)][floor(gridY/Grid::split)] = 1;
             saveSign(dbColumn,QString::number(1),currentSign, dbName);
-            //setSign(currentSign,dbName);
         }
     }
     if(event->buttons() == Qt::RightButton){
         if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1){
             Sign::sign[0][floor(gridX/Grid::split)][floor(gridY/Grid::split)] = 0;
             saveSign(dbColumn,QString::number(0),currentSign, dbName);
-            //setSign(currentSign,dbName);
         }
     }
 }
@@ -83,7 +81,6 @@ void GlWidget::mouseHandler(QMouseEvent *event){
 void GlWidget::onGrid(QMouseEvent *event){
     if(event->buttons() == Qt::LeftButton){
         if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1){
-            //Sign::sign[0][gridX][gridY] = 1;
             Sign::sign[0][floor(gridX/Grid::split)][floor(gridY/Grid::split)] = 1;
             //std::cout<<"x: "<<gridX<<" - x: "<<gridX/Grid::split<<" / y: "<<gridY<<" - y: "<<gridY/Grid::split<<std::endl;
             saveSign(dbColumn,QString::number(1),currentSign, dbName);
