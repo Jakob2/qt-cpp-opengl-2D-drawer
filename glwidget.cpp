@@ -23,6 +23,7 @@ void GlWidget::paintGL(){
     botMenu();
     topMenuText();
     botMenuText();
+    overtopMenuText();
 }
 
 void GlWidget::resizeGL(int w, int h){
@@ -96,13 +97,13 @@ void GlWidget::onGrid(QMouseEvent *event){
         if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1){
             //Sign::sign[0][gridX][gridY] = 1;
             Sign::sign[0][floor(gridX/Grid::split)][floor(gridY/Grid::split)] = 1;
-            std::cout<<"x: "<<gridX<<" - x: "<<gridX/Grid::split<<" / y: "<<gridY<<" - y: "<<gridY/Grid::split<<std::endl;
+            //std::cout<<"x: "<<gridX<<" - x: "<<gridX/Grid::split<<" / y: "<<gridY<<" - y: "<<gridY/Grid::split<<std::endl;
             saveSign(dbColumn,QString::number(1),currentSign, dbName);
         }
     }
     if(event->buttons() == Qt::RightButton){
         if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1){
-            Sign::sign[0][gridX][gridY] = 0;
+            Sign::sign[0][floor(gridX/Grid::split)][floor(gridY/Grid::split)] = 0;
             saveSign(dbColumn,QString::number(0),currentSign, dbName);
         }
     }
@@ -215,7 +216,7 @@ void GlWidget::createDbColumnString(){
         t = col[gridX/Grid::split];
         //dbColumn = a+QString::number(gridX)+QString::number(gridY);
         dbColumn = t+QString::number(floor(gridX/Grid::split))+QString::number(floor(gridY/Grid::split));
-        qDebug()<<"dbColumn: "<<dbColumn;
+        //qDebug()<<"dbColumn: "<<dbColumn;
         //qDebug()<<"TdbColumn: "<<dbColumnT;
     }
 }
@@ -254,5 +255,17 @@ void GlWidget::botMenuText(){
     y = 0.96 * HEIGHT;
     x = ((float)WIDTH*(0.45*Grid::high))/(Grid::high+(-Grid::left+Grid::right));
     renderText(x,y,botBigText);
+}
+
+void GlWidget::overtopMenuText(){
+    float x, y;
+    y = ((float)HEIGHT*2.0)/(Grid::range+-Grid::bottom+Grid::top);
+    x = 0.2*WIDTH;
+    glColor3f(1,1,1);
+    renderText(x,y,largeText);
+    x = 0.5*WIDTH;
+    renderText(x,y,mediumText);
+    x = 0.8*WIDTH;
+    renderText(x,y,smallText);
 }
 

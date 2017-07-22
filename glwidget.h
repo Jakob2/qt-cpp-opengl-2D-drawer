@@ -44,8 +44,12 @@ private:
     QString botLeftText = "Add Sign";
     QString botRightText = "Delete Sign";
     QString botBigText = "overview";
+    QString largeText = "Large";
+    QString mediumText = "Medium";
+    QString smallText = "Small";
     void topMenuText();
     void botMenuText();
+    void overtopMenuText();
 };
 
 #endif // GLWIDGET_H

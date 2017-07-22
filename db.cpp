@@ -3,8 +3,8 @@
 Db::Db(){
     connectDb();
     //createLargeTable();
-    //createMediumTable();
-    //createSmallTable();
+    createMediumTable();
+    createSmallTable();
     setSign(QString::number(1), dbNameLarge);
     setDistinctSigns(dbNameLarge);
 }
@@ -20,8 +20,8 @@ void Db::createLargeTable(){
     QSqlQuery query;
     if(query.exec("create table if not exists "+dbNameLarge+" (`0` int)")) std::cout<<"table created"<<std::endl;
     else qDebug()<<"create table error: "<<query.lastError()<<" / "<<query.lastQuery();
-    for(int x=0; x<30; x++){
-        for(int y=0; y<30; y++){
+    for(int x=0; x<Grid::range; x++){
+        for(int y=0; y<Grid::range; y++){
             if(query.exec("alter table "+dbNameLarge+" add column `"+col[x]+""+QString::number(x)+""+QString::number(y)+"` int")) std::cout<<"columns created"<<std::endl;
             else qDebug()<<"create column error: "<<query.lastError()<<" / "<<query.lastQuery();
         }
@@ -34,8 +34,8 @@ void Db::createMediumTable(){
     QSqlQuery query;
     if(query.exec("create table if not exists "+dbNameMedium+" (`0` int)")) std::cout<<"table created"<<std::endl;
     else qDebug()<<"create table error: "<<query.lastError()<<" / "<<query.lastQuery();
-    for(int x=0; x<20; x++){
-        for(int y=0; y<20; y++){
+    for(int x=0; x<Grid::range/2; x++){
+        for(int y=0; y<Grid::range/2; y++){
             if(query.exec("alter table "+dbNameMedium+" add column `"+col[x]+""+QString::number(x)+""+QString::number(y)+"` int")) std::cout<<"columns created"<<std::endl;
             else qDebug()<<"create column error: "<<query.lastError()<<" / "<<query.lastQuery();
         }
@@ -48,8 +48,8 @@ void Db::createSmallTable(){
     QSqlQuery query;
     if(query.exec("create table if not exists "+dbNameSmall+" (`0` int)")) std::cout<<"table created"<<std::endl;
     else qDebug()<<"create table error: "<<query.lastError()<<" / "<<query.lastQuery();
-    for(int x=0; x<10; x++){
-        for(int y=0; y<10; y++){
+    for(int x=0; x<Grid::range/3; x++){
+        for(int y=0; y<Grid::range/3; y++){
             if(query.exec("alter table "+dbNameSmall+" add column `"+col[x]+""+QString::number(x)+""+QString::number(y)+"` int")) std::cout<<"columns created"<<std::endl;
             else qDebug()<<"create column error: "<<query.lastError()<<" / "<<query.lastQuery();
         }
@@ -78,8 +78,8 @@ void Db::setSign(QString name, QString db){
     if(query.exec("select * from "+db+" where name = "+name)) qDebug()<<"sign selected "<<query.lastQuery();
     else qDebug()<<"select sign error: "<<query.lastError()<<" / "<<query.lastQuery();
     while(query.next()){
-        for(int x=0; x<Grid::range; x++){
-            for(int y=0; y<Grid::range; y++){
+        for(int x=0; x<Grid::range/Grid::split; x++){
+            for(int y=0; y<Grid::range/Grid::split; y++){
                Sign::sign[index][x][y] = query.value(c).toInt();
                c++;
             }

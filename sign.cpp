@@ -10,9 +10,9 @@ Sign::Sign(){
 void Sign::initSigns(){
     for(int i=0; i<1; i++){
         Sign::sign.push_back(std::vector<std::vector<int>>());
-        for(int j=0; j<Grid::range; j++){
+        for(int j=0; j<Grid::range/Grid::split; j++){
             Sign::sign[i].push_back(std::vector<int>());
-            for(int k=0; k<Grid::range; k++){
+            for(int k=0; k<Grid::range/Grid::split; k++){
                 Sign::sign[i][j].push_back(0);
             }
         }
