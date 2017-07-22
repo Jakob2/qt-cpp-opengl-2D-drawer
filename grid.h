@@ -14,6 +14,8 @@ public:
     static float range;
     static float low, high;
     static float left, right, bottom, top;
+    static float split;
+
 };
 
 #endif // GRID_H

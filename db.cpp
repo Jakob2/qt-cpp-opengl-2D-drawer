@@ -108,7 +108,7 @@ void Db::removeSign(QString name, QString db){
 
 void Db::saveSign(QString dbColumn, QString type, QString name, QString db){
     QSqlQuery query;
-    if(query.exec("update "+db+" set "+dbColumn+" = "+type+" where name ="+name)) std::cout<<"sign updated"<<std::endl;
+    if(query.exec("update "+db+" set "+dbColumn+" = "+type+" where name ="+name)) qDebug()<<"sign updated"<<query.lastQuery();
     else qDebug()<<"update error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 

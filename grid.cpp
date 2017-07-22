@@ -7,8 +7,10 @@ float Grid::left;
 float Grid::right;
 float Grid::bottom;
 float Grid::top;
+float Grid::split;
 
 Grid::Grid(){
+    Grid::split = 1;
     Grid::range = 30;
     Grid::high = Grid::range/10;
     Grid::low = 0;
@@ -19,7 +21,7 @@ Grid::Grid(){
 }
 
 void Grid::horizontal(){
-    for(float y=0; y<Grid::range+1; y++){
+    for(float y=0; y<Grid::range+1; y+=Grid::split){
         glBegin(GL_LINES);
         glColor3f(0,0,0);
         if(y==Grid::range/2) glColor3f(0,1,0);
@@ -31,7 +33,7 @@ void Grid::horizontal(){
 }
 
 void Grid::vertical(){
-    for(float x=0; x<Grid::range+1; x++){
+    for(float x=0; x<Grid::range+1; x+=Grid::split){
         glBegin(GL_LINES);
         glColor3f(0,0,0);
         if(x==Grid::range/2) glColor3f(0,1,0);
