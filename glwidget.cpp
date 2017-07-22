@@ -18,11 +18,8 @@ void GlWidget::paintGL(){
     horizontal();
     vertical();
     botMenu();
-    glColor3f(1,1,1);
-    renderText(floor((float)WIDTH/4), HEIGHT-45, botLeftText);
-    renderText(floor(((float)WIDTH/4)+(float)WIDTH/2.5), HEIGHT-45, botRightText);
-    renderText(floor(((float)WIDTH/2)), HEIGHT-20, botBigText);
     topMenuText();
+    botMenuText();
 }
 
 void GlWidget::resizeGL(int w, int h){
@@ -114,7 +111,9 @@ void GlWidget::onBotMenu(QMouseEvent *event){
                 setDistinctSigns();
             }
             std::cout<<"right clicked "<<std::endl;
-
+        }
+        if((gridX>=Grid::low && gridX<Grid::high*10) && (gridY>=botBigLow*10 && gridY<botBigHigh*10)){
+            std::cout<<"screene"<<std::endl;
         }
     }
 }
@@ -124,7 +123,7 @@ void GlWidget::hover(){
     else botLeftHover = false;
     if((gridX>=Grid::high/2*10 && gridX<Grid::high*10) && (gridY>botBtnLow*10 && gridY<botBtnHigh*10)) botRightHover = true;
     else botRightHover = false;
-    if((gridX>=Grid::low && gridX<Grid::high*10) && (gridY>botBigLow*10 && gridY<botBigHigh*10)) botBigHover = true;
+    if((gridX>=Grid::low && gridX<Grid::high*10) && (gridY>=botBigLow*10 && gridY<botBigHigh*10)) botBigHover = true;
     else botBigHover = false;
 }
 
@@ -161,7 +160,21 @@ void GlWidget::topMenuText(){
     for(float i=1; i<=(int)Sign::set.size(); i++){
         t = QString::number(i);
         x = ((float)WIDTH*((i+topMenuSpacer)/10))/(Grid::high+(-Grid::left+Grid::right));
+        glColor3f(1,1,1);
         renderText(x,y,t);
     }
+}
+
+void GlWidget::botMenuText(){
+    float x, y;
+    y = 0.91 * HEIGHT;
+    x = ((float)WIDTH*(0.45*Grid::high/2))/(Grid::high+(-Grid::left+Grid::right));
+    glColor3f(1,1,1);
+    renderText(x,y,botLeftText);
+    x = ((float)WIDTH*(0.7*Grid::high))/(Grid::high+(-Grid::left+Grid::right));
+    renderText(x,y,botRightText);
+    y = 0.96 * HEIGHT;
+    x = ((float)WIDTH*(0.45*Grid::high))/(Grid::high+(-Grid::left+Grid::right));
+    renderText(x,y,botBigText);
 }
 

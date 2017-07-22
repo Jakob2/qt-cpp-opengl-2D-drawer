@@ -41,10 +41,10 @@ void Menu::botMenu(){
     glBegin(GL_POLYGON);
     glColor3f(0.5,0,0.5);
     if(botBigHover) glColor3f(0.5,0.5,0);
-    glVertex2f(Grid::low, Grid::low+botBtnHigh-.2);
-    glVertex2f(Grid::low, Grid::low+botBtnLow-.2);
-    glVertex2f(Grid::high, Grid::low+botBtnLow-.2);
-    glVertex2f(Grid::high, Grid::low+botBtnHigh-.2);
+    glVertex2f(Grid::low, Grid::low+botBigHigh);
+    glVertex2f(Grid::low, Grid::low+botBigLow);
+    glVertex2f(Grid::high, Grid::low+botBigLow);
+    glVertex2f(Grid::high, Grid::low+botBigHigh);
     glEnd();
 }
 

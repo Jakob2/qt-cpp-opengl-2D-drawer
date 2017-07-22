@@ -43,6 +43,7 @@ private:
     QString botRightText = "Delete Sign";
     QString botBigText = "screenshot";
     void topMenuText();
+    void botMenuText();
 };
 
 #endif // GLWIDGET_H
