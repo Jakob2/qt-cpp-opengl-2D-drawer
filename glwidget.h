@@ -41,6 +41,7 @@ private:
 
     QString botLeftText = "Add Sign";
     QString botRightText = "Delete Sign";
+    QString botBigText = "screenshot";
     void topMenuText();
 };
 

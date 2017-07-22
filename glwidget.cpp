@@ -19,8 +19,9 @@ void GlWidget::paintGL(){
     vertical();
     botMenu();
     glColor3f(1,1,1);
-    renderText(floor((float)WIDTH/4), HEIGHT-25, botLeftText);
-    renderText(floor(((float)WIDTH/4)+(float)WIDTH/2.5), HEIGHT-25, botRightText);
+    renderText(floor((float)WIDTH/4), HEIGHT-45, botLeftText);
+    renderText(floor(((float)WIDTH/4)+(float)WIDTH/2.5), HEIGHT-45, botRightText);
+    renderText(floor(((float)WIDTH/2)), HEIGHT-20, botBigText);
     topMenuText();
 }
 
@@ -123,6 +124,8 @@ void GlWidget::hover(){
     else botLeftHover = false;
     if((gridX>=Grid::high/2*10 && gridX<Grid::high*10) && (gridY>botBtnLow*10 && gridY<botBtnHigh*10)) botRightHover = true;
     else botRightHover = false;
+    if((gridX>=Grid::low && gridX<Grid::high*10) && (gridY>botBigLow*10 && gridY<botBigHigh*10)) botBigHover = true;
+    else botBigHover = false;
 }
 
 void GlWidget::createDbColumnString(){
@@ -153,11 +156,11 @@ bool GlWidget::deleteAlert(){
 
 void GlWidget::topMenuText(){
     float x, y;
-    y = 25;
     QString t;
+    y = ((float)HEIGHT*(Grid::high+topMenuLow+Grid::bottom-Grid::top-0.5))/(Grid::range+Grid::high);
     for(float i=1; i<=(int)Sign::set.size(); i++){
         t = QString::number(i);
-        x = ((float)WIDTH*(i/10))/(Grid::high+(-Grid::left+Grid::right))+50;
+        x = ((float)WIDTH*((i+topMenuSpacer)/10))/(Grid::high+(-Grid::left+Grid::right));
         renderText(x,y,t);
     }
 }

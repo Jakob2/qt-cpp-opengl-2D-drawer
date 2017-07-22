@@ -14,7 +14,7 @@ Grid::Grid(){
     Grid::low = 0;
     Grid::left = -0.1;
     Grid::right = 0.1;
-    Grid::bottom = -0.4;
+    Grid::bottom = -0.6;
     Grid::top = 0.3;
 }
 

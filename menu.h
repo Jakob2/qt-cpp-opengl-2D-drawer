@@ -20,8 +20,12 @@ public:
     float botBtnLow = -.3;
     float botBtnHigh = -.1;
 
+    float botBigLow = -.5;
+    float botBigHigh = -.3;
+
     bool botLeftHover = false;
     bool botRightHover = false;
+    bool botBigHover = false;
 };
 
 #endif // MENU_H
