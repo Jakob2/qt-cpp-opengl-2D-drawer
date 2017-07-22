@@ -6,7 +6,7 @@ Menu::Menu(){
 
 void Menu::topMenu(){
     bool clr = false;
-    for(float x=shift+topMenuSpacer; x<topMax+shift+topMenuSpacer; x++){
+    for(float x=topMenuSpacer; x<topMax+topMenuSpacer; x++){
         glBegin(GL_POLYGON);
         if(clr) glColor3f(0,0,0.5);
         if(!clr) glColor3f(0,0.5,0);

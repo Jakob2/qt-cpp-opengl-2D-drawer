@@ -69,6 +69,7 @@ void GlWidget::mouseHandler(QMouseEvent *event){
     onGrid(event);
     onBotMenu(event);
     onTopMenu(event);
+    onArrow(event);
 }
 
 void GlWidget::onGrid(QMouseEvent *event){
@@ -91,9 +92,22 @@ void GlWidget::onTopMenu(QMouseEvent *event){
         for(int x=topMenuSpacer; x<topMax+topMenuSpacer; x++){
             if((int)gridX==x && (int)gridY-1==(int)(Grid::high+topMenuLow)*10){
                 std::cout<<"topmenu: "<<x-topMenuSpacer<<std::endl;
-                currentSign = QString::number(Sign::set[x-topMenuSpacer]);
+                currentSign = QString::number(Sign::set[x-topMenuSpacer+shift]);
                 setSign(currentSign);
             }
+        }
+    }
+}
+
+void GlWidget::onArrow(QMouseEvent *event){
+    if(event->buttons() == Qt::LeftButton){
+        if((int)gridX==(int)(Grid::low*10) && (int)gridY==(int)((Grid::high+topMenuLow)*10)){
+            std::cout<<"left arrow clicked"<<std::endl;
+            if(shift) shift--;
+        }
+        if((int)(gridX-1)==(int)((Grid::high-.1)*10) && (int)gridY==(int)((Grid::high+topMenuLow)*10)){
+            std::cout<<"right arrow clicked, size:"<<Sign::set.size()<<std::endl;
+            if(shift<(int)Sign::set.size()-topMax) shift++;
         }
     }
 }
@@ -127,6 +141,11 @@ void GlWidget::hover(){
     else botRightHover = false;
     if((gridX>=Grid::low && gridX<Grid::high*10) && (gridY>=botBigLow*10 && gridY<botBigHigh*10)) botBigHover = true;
     else botBigHover = false;
+    if((int)gridX==(int)(Grid::low*10) && (int)gridY==(int)((Grid::high+topMenuLow)*10)) leftArrowHover = true;
+    else leftArrowHover = false;
+    if((int)(gridX-1)==(int)((Grid::high-.1)*10) && (int)gridY==(int)((Grid::high+topMenuLow)*10)) rightArrowHover = true;
+    else rightArrowHover = false;
+
 }
 
 void GlWidget::createDbColumnString(){
@@ -154,7 +173,7 @@ void GlWidget::topMenuText(){
     QString t;
     y = ((float)HEIGHT*(Grid::high+topMenuLow+Grid::bottom-Grid::top-0.5))/(Grid::range+Grid::high);
     for(float i=1; i<=topMax; i++){
-        t = QString::number(i);
+        t = QString::number(i+shift);
         x = ((float)WIDTH*((i+topMenuSpacer)/10))/(Grid::high+(-Grid::left+Grid::right));
         glColor3f(1,1,1);
         renderText(x,y,t);

@@ -29,6 +29,7 @@ private:
     void mouseHandler(QMouseEvent *event);
     void onGrid(QMouseEvent *event);
     void onTopMenu(QMouseEvent *event);
+    void onArrow(QMouseEvent *event);
     void onBotMenu(QMouseEvent *event);
     void hover();
 
