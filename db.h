@@ -11,17 +11,21 @@ public:
     Db();
 
     void connectDb();
-    void createTable();
-    void setDistinctSigns();
-    void setSign(QString name);
-    void addSign();
-    void removeSign(QString name);
-    void saveSign(QString dbColumn, QString type, QString name);
+    void createLargeTable();
+    void createMediumTable();
+    void createSmallTable();
+    void setDistinctSigns(QString db);
+    void setSign(QString name, QString db);
+    void addSign(QString db);
+    void removeSign(QString name, QString db);
+    void saveSign(QString dbColumn, QString type, QString name, QString db);
 
     std::vector<QString> col = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","x","z","aa","ab","ac","ad"};
-private:
-    QString dbName = "a1";
 
+    QString dbName = "a1";
+    QString dbNameLarge = "a1";
+    QString dbNameMedium = "a2";
+    QString dbNameSmall = "a3";
 };
 
 #endif // DB_H

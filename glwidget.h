@@ -31,6 +31,7 @@ private:
     void onTopMenu(QMouseEvent *event);
     void onArrow(QMouseEvent *event);
     void onBotMenu(QMouseEvent *event);
+    void onOverTopMenu(QMouseEvent *event);
     void hover();
 
     void createDbColumnString();
@@ -42,7 +43,7 @@ private:
 
     QString botLeftText = "Add Sign";
     QString botRightText = "Delete Sign";
-    QString botBigText = "screenshot";
+    QString botBigText = "overview";
     void topMenuText();
     void botMenuText();
 };

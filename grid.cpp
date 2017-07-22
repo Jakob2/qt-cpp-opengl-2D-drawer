@@ -15,7 +15,7 @@ Grid::Grid(){
     Grid::left = -0.1;
     Grid::right = 0.1;
     Grid::bottom = -0.6;
-    Grid::top = 0.3;
+    Grid::top = 0.6;
 }
 
 void Grid::horizontal(){

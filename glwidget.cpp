@@ -16,6 +16,7 @@ void GlWidget::paintGL(){
     arrow();
     setTopMax();
     topMenu();
+    overtopMenu();
     drawSign();
     horizontal();
     vertical();
@@ -45,7 +46,7 @@ void GlWidget::mousePressEvent(QMouseEvent *event){
 
 void GlWidget::coords(){
     gridX = floor((10*((Grid::high+(-Grid::left+Grid::right))*mouseX)/WIDTH))-1;
-    gridY = Grid::range - floor((10*((Grid::high+(-Grid::bottom+Grid::top))*mouseY)/HEIGHT))+2;
+    gridY = Grid::range - floor((10*((Grid::high+(-Grid::bottom+Grid::top))*mouseY)/HEIGHT))+5;
     //std::cout<<"x: "<<gridX<<" / y: "<<gridY<<std::endl;
 }
 
@@ -57,11 +58,11 @@ void GlWidget::mouseMoveEvent(QMouseEvent *event){
     hover();
     if(event->buttons() == Qt::LeftButton){
         if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1) Sign::sign[0][gridX][gridY] = 1;
-        saveSign(dbColumn,QString::number(1),currentSign);
+        saveSign(dbColumn,QString::number(1),currentSign, dbName);
     }
     if(event->buttons() == Qt::RightButton){
         if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1) Sign::sign[0][gridX][gridY] = 0;
-        saveSign(dbColumn,QString::number(0),currentSign);
+        saveSign(dbColumn,QString::number(0),currentSign, dbName);
     }
 }
 
@@ -70,19 +71,20 @@ void GlWidget::mouseHandler(QMouseEvent *event){
     onBotMenu(event);
     onTopMenu(event);
     onArrow(event);
+    onOverTopMenu(event);
 }
 
 void GlWidget::onGrid(QMouseEvent *event){
     if(event->buttons() == Qt::LeftButton){
         if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1){
             Sign::sign[0][gridX][gridY] = 1;
-            saveSign(dbColumn,QString::number(1),currentSign);
+            saveSign(dbColumn,QString::number(1),currentSign, dbName);
         }
     }
     if(event->buttons() == Qt::RightButton){
         if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1){
             Sign::sign[0][gridX][gridY] = 0;
-            saveSign(dbColumn,QString::number(0),currentSign);
+            saveSign(dbColumn,QString::number(0),currentSign, dbName);
         }
     }
 }
@@ -93,7 +95,7 @@ void GlWidget::onTopMenu(QMouseEvent *event){
             if((int)gridX==x && (int)gridY-1==(int)(Grid::high+topMenuLow)*10){
                 std::cout<<"topmenu: "<<x-topMenuSpacer<<std::endl;
                 currentSign = QString::number(Sign::set[x-topMenuSpacer+shift]);
-                setSign(currentSign);
+                setSign(currentSign, dbName);
             }
         }
     }
@@ -116,21 +118,48 @@ void GlWidget::onBotMenu(QMouseEvent *event){
     bool del;
     if(event->buttons() == Qt::LeftButton){
         if((gridX>=Grid::low && gridX<Grid::high/2*10) && (gridY>=botBtnLow*10 && gridY<botBtnHigh*10)){
-            addSign();
-            setDistinctSigns();
+            addSign(dbName);
+            setDistinctSigns(dbName);
             std::cout<<"left clicked"<<std::endl;
         }
         if((gridX>=Grid::high/2*10 && gridX<Grid::high*10) && (gridY>botBtnLow*10 && gridY<botBtnHigh*10)){
             del = deleteAlert();
             if(del){
-                removeSign(currentSign);
-                setDistinctSigns();
+                removeSign(currentSign, dbName);
+                setDistinctSigns(dbName);
             }
             std::cout<<"right clicked "<<std::endl;
         }
         if((gridX>=Grid::low && gridX<Grid::high*10) && (gridY>=botBigLow*10 && gridY<botBigHigh*10)){
             std::cout<<"screene"<<std::endl;
         }
+    }
+}
+
+void GlWidget::onOverTopMenu(QMouseEvent *event){
+    if(event->buttons() == Qt::LeftButton){
+        if(((int)gridX>=(int)((Grid::low+0)*10) && (int)gridX<(int)((Grid::high/3)*10))
+        && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+            dbName = dbNameLarge,
+            setDistinctSigns(dbName);
+            //Grid::range = 30;
+            std::cout<<"large clicked"<<std::endl;
+        }
+        if(((int)gridX>=(int)((Grid::high/3)*10) && (int)gridX<(int)((Grid::high/3*2)*10))
+        && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+            dbName = dbNameMedium;
+            setDistinctSigns(dbName);
+            //Grid::range = 20;
+            std::cout<<"medium clicked"<<std::endl;
+        }
+        if(((int)gridX>=(int)((Grid::high/3*2)*10) && (int)gridX<(int)((Grid::high)*10))
+        && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+            dbName = dbNameSmall;
+            setDistinctSigns(dbName);
+            //Grid::range = 10;
+            std::cout<<"small clicked"<<std::endl;
+        }
+        //std::cout<<"OVERTOP x: "<<(Grid::low+0)*10<<" / y: "<<(Grid::high+.3)*10<<std::endl;
     }
 }
 
@@ -145,6 +174,21 @@ void GlWidget::hover(){
     else leftArrowHover = false;
     if((int)(gridX-1)==(int)((Grid::high-.1)*10) && (int)gridY==(int)((Grid::high+topMenuLow)*10)) rightArrowHover = true;
     else rightArrowHover = false;
+    if(((int)gridX>=(int)((Grid::low+0)*10) && (int)gridX<(int)((Grid::high/3)*10))
+    && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+        bigRangeHover = true;
+    }
+    else bigRangeHover = false;
+    if(((int)gridX>=(int)((Grid::high/3)*10) && (int)gridX<(int)((Grid::high/3*2)*10))
+    && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+        mediumRangeHover = true;
+    }
+    else mediumRangeHover = false;
+    if(((int)gridX>=(int)((Grid::high/3*2)*10) && (int)gridX<(int)((Grid::high)*10))
+    && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+        smallRangeHover = true;
+    }
+    else smallRangeHover = false;
 
 }
 
@@ -171,7 +215,7 @@ bool GlWidget::deleteAlert(){
 void GlWidget::topMenuText(){
     float x, y;
     QString t;
-    y = ((float)HEIGHT*(Grid::high+topMenuLow+Grid::bottom-Grid::top-0.5))/(Grid::range+Grid::high);
+    y = ((float)HEIGHT*3.65)/(Grid::range+-Grid::bottom+Grid::top);
     for(float i=1; i<=topMax; i++){
         t = QString::number(i+shift);
         x = ((float)WIDTH*((i+topMenuSpacer)/10))/(Grid::high+(-Grid::left+Grid::right));

@@ -78,7 +78,35 @@ void Menu::arrow(){
     glVertex2f(Grid::high-.1+0.03, Grid::high+topMenuLow+0.07);
     glVertex2f(Grid::high-.1+0.07, Grid::high+topMenuLow+0.05);
     glEnd();
+}
 
+void Menu::overtopMenu(){
+    glBegin(GL_POLYGON);
+    glColor3f(0.1,0.3,0.6);
+    if(bigRangeHover) glColor3f(0.5,0.5,0);
+    glVertex2f(Grid::low+0, Grid::high+.3);
+    glVertex2f(Grid::low+0, Grid::high+.5);
+    glVertex2f(Grid::high/3, Grid::high+.5);
+    glVertex2f(Grid::high/3, Grid::high+.3);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3f(0.3,0.5,0.8);
+    if(mediumRangeHover) glColor3f(0.5,0.5,0);
+    glVertex2f(Grid::high/3, Grid::high+.3);
+    glVertex2f(Grid::high/3, Grid::high+.5);
+    glVertex2f(Grid::high/3*2, Grid::high+.5);
+    glVertex2f(Grid::high/3*2, Grid::high+.3);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3f(0.5,0.7,1.0);
+    if(smallRangeHover) glColor3f(0.5,0.5,0);
+    glVertex2f(Grid::high/3*2, Grid::high+.3);
+    glVertex2f(Grid::high/3*2, Grid::high+.5);
+    glVertex2f(Grid::high, Grid::high+.5);
+    glVertex2f(Grid::high, Grid::high+.3);
+    glEnd();
 }
 
 void Menu::setTopMax(){
