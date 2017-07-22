@@ -13,9 +13,6 @@ public:
     static std::vector<int> set;
     static void initSigns();
     void drawSign();
-    //void updateCell(int x, int y);
-
-    //float add;
 };
 
 #endif // SIGN_H
