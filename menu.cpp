@@ -57,6 +57,12 @@ void Menu::arrow(){
     glVertex2f(Grid::low+.1, Grid::high+topMenuHigh);
     glVertex2f(Grid::low+.1, Grid::high+topMenuLow);
     glEnd();
+    glBegin(GL_POLYGON);
+    glColor3f(1,1,1);
+    glVertex2f(Grid::low+0.03, Grid::high+topMenuLow+0.05);
+    glVertex2f(Grid::low+0.07, Grid::high+topMenuLow+0.07);
+    glVertex2f(Grid::low+0.07, Grid::high+topMenuLow+0.03);
+    glEnd();
 
     glBegin(GL_POLYGON);
     glColor3f(0.2,0.4,0.7);
@@ -66,6 +72,13 @@ void Menu::arrow(){
     glVertex2f(Grid::high, Grid::high+topMenuHigh);
     glVertex2f(Grid::high, Grid::high+topMenuLow);
     glEnd();
+    glBegin(GL_POLYGON);
+    glColor3f(1,1,1);
+    glVertex2f(Grid::high-.1+0.03, Grid::high+topMenuLow+0.03);
+    glVertex2f(Grid::high-.1+0.03, Grid::high+topMenuLow+0.07);
+    glVertex2f(Grid::high-.1+0.07, Grid::high+topMenuLow+0.05);
+    glEnd();
+
 }
 
 void Menu::setTopMax(){
