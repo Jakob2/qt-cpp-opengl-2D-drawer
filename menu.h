@@ -25,6 +25,9 @@ public:
     float botBigLow = -.5;
     float botBigHigh = -.3;
 
+    float overtopLow = .3;
+    float overtopHigh = .5;
+
     bool botLeftHover = false;
     bool botRightHover = false;
     bool botBigHover = false;

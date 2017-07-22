@@ -158,25 +158,22 @@ void GlWidget::onBotMenu(QMouseEvent *event){
 void GlWidget::onOverTopMenu(QMouseEvent *event){
     if(event->buttons() == Qt::LeftButton){
         if(((int)gridX>=(int)((Grid::low+0)*10) && (int)gridX<(int)((Grid::high/3)*10))
-        && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+        && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
             dbName = dbNameLarge,
             setDistinctSigns(dbName);
             Grid::split = 1;
-            std::cout<<"large clicked"<<std::endl;
         }
         if(((int)gridX>=(int)((Grid::high/3)*10) && (int)gridX<(int)((Grid::high/3*2)*10))
-        && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+        && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
             dbName = dbNameMedium;
             setDistinctSigns(dbName);
             Grid::split = 2;
-            std::cout<<"medium clicked"<<std::endl;
         }
         if(((int)gridX>=(int)((Grid::high/3*2)*10) && (int)gridX<(int)((Grid::high)*10))
-        && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+        && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
             dbName = dbNameSmall;
             setDistinctSigns(dbName);
             Grid::split = 3;
-            std::cout<<"small clicked"<<std::endl;
         }
         //std::cout<<"OVERTOP x: "<<(Grid::low+0)*10<<" / y: "<<(Grid::high+.3)*10<<std::endl;
     }
@@ -194,17 +191,17 @@ void GlWidget::hover(){
     if((int)(gridX-1)==(int)((Grid::high-.1)*10) && (int)gridY==(int)((Grid::high+topMenuLow)*10)) rightArrowHover = true;
     else rightArrowHover = false;
     if(((int)gridX>=(int)((Grid::low+0)*10) && (int)gridX<(int)((Grid::high/3)*10))
-    && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+    && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
         bigRangeHover = true;
     }
     else bigRangeHover = false;
     if(((int)gridX>=(int)((Grid::high/3)*10) && (int)gridX<(int)((Grid::high/3*2)*10))
-    && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+    && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
         mediumRangeHover = true;
     }
     else mediumRangeHover = false;
     if(((int)gridX>=(int)((Grid::high/3*2)*10) && (int)gridX<(int)((Grid::high)*10))
-    && ( (int)gridY>=(int)(((Grid::high+.3)*10)+1) && (int)gridY<(int)(((Grid::high+.5)*10)))){
+    && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
         smallRangeHover = true;
     }
     else smallRangeHover = false;
