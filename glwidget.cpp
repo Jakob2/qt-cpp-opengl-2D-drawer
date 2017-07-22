@@ -48,24 +48,6 @@ void GlWidget::mousePressEvent(QMouseEvent *event){
 void GlWidget::coords(){
     gridX = floor((10*((Grid::high+(-Grid::left+Grid::right))*mouseX)/WIDTH))-1;
     gridY = Grid::range - floor((10*((Grid::high+(-Grid::bottom+Grid::top))*mouseY)/HEIGHT))+5;
-    /*switch((int)split){
-    case 1:
-        gridX /= 1;
-        gridY /= 1;
-        //add = 0;
-        break;
-    case 2:
-        gridX = floor(gridX/2);
-        gridY = floor(gridY/2);
-        //add = .2;
-        break;
-    case 3:
-        gridX = floor(gridX/3);
-        gridY = floor(gridY/3);
-        //add = .3;
-        break;
-    }*/
-    //std::cout<<"x: "<<gridX<<" / y: "<<gridY<<std::endl;
 }
 
 void GlWidget::mouseMoveEvent(QMouseEvent *event){
@@ -75,12 +57,18 @@ void GlWidget::mouseMoveEvent(QMouseEvent *event){
     createDbColumnString();
     hover();
     if(event->buttons() == Qt::LeftButton){
-        if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1) Sign::sign[0][gridX][gridY] = 1;
-        saveSign(dbColumn,QString::number(1),currentSign, dbName);
+        if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1){
+            Sign::sign[0][floor(gridX/Grid::split)][floor(gridY/Grid::split)] = 1;
+            saveSign(dbColumn,QString::number(1),currentSign, dbName);
+            //setSign(currentSign,dbName);
+        }
     }
     if(event->buttons() == Qt::RightButton){
-        if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1) Sign::sign[0][gridX][gridY] = 0;
-        saveSign(dbColumn,QString::number(0),currentSign, dbName);
+        if(gridX>=0 && gridX<=Grid::range-1 && gridY>=0 && gridY<=Grid::range-1){
+            Sign::sign[0][floor(gridX/Grid::split)][floor(gridY/Grid::split)] = 0;
+            saveSign(dbColumn,QString::number(0),currentSign, dbName);
+            //setSign(currentSign,dbName);
+        }
     }
 }
 
@@ -140,19 +128,20 @@ void GlWidget::onBotMenu(QMouseEvent *event){
         if((gridX>=Grid::low && gridX<Grid::high/2*10) && (gridY>=botBtnLow*10 && gridY<botBtnHigh*10)){
             addSign(dbName);
             setDistinctSigns(dbName);
-            std::cout<<"left clicked"<<std::endl;
+            //std::cout<<"left clicked"<<std::endl;
         }
         if((gridX>=Grid::high/2*10 && gridX<Grid::high*10) && (gridY>botBtnLow*10 && gridY<botBtnHigh*10)){
             del = deleteAlert();
             if(del){
                 removeSign(currentSign, dbName);
                 setDistinctSigns(dbName);
+                setSign(QString::number(Sign::set[0]), dbName);
             }
-            std::cout<<"right clicked "<<std::endl;
+            //std::cout<<"right clicked "<<std::endl;
         }
-        if((gridX>=Grid::low && gridX<Grid::high*10) && (gridY>=botBigLow*10 && gridY<botBigHigh*10)){
+        /*if((gridX>=Grid::low && gridX<Grid::high*10) && (gridY>=botBigLow*10 && gridY<botBigHigh*10)){
             std::cout<<"screene"<<std::endl;
-        }
+        }*/
     }
 }
 
@@ -206,11 +195,10 @@ void GlWidget::hover(){
         smallRangeHover = true;
     }
     else smallRangeHover = false;
-
 }
 
 void GlWidget::createDbColumnString(){
-    QString a, t, dbColumnT;
+    QString a, t;//, dbColumnT;
     if(gridX>=0 && gridX<Grid::range && gridY>=0 && gridY<Grid::range){
         //a = col[gridX];
         t = col[gridX/Grid::split];
@@ -260,10 +248,10 @@ void GlWidget::botMenuText(){
 void GlWidget::overtopMenuText(){
     float x, y;
     y = ((float)HEIGHT*2.0)/(Grid::range+-Grid::bottom+Grid::top);
-    x = 0.2*WIDTH;
+    x = 0.15*WIDTH;
     glColor3f(1,1,1);
     renderText(x,y,largeText);
-    x = 0.5*WIDTH;
+    x = 0.45*WIDTH;
     renderText(x,y,mediumText);
     x = 0.8*WIDTH;
     renderText(x,y,smallText);
