@@ -13,6 +13,8 @@ void GlWidget::initializeGL(){
 
 void GlWidget::paintGL(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    arrow();
+    setTopMax();
     topMenu();
     drawSign();
     horizontal();
@@ -86,10 +88,10 @@ void GlWidget::onGrid(QMouseEvent *event){
 
 void GlWidget::onTopMenu(QMouseEvent *event){
     if(event->buttons() == Qt::LeftButton){
-        for(int x=topMenuSpacer; x<(int)Sign::set.size()+topMenuSpacer; x++){
+        for(int x=topMenuSpacer; x<topMax+topMenuSpacer; x++){
             if((int)gridX==x && (int)gridY-1==(int)(Grid::high+topMenuLow)*10){
                 std::cout<<"topmenu: "<<x-topMenuSpacer<<std::endl;
-                currentSign = QString::number(x-topMenuSpacer+1);
+                currentSign = QString::number(Sign::set[x-topMenuSpacer]);
                 setSign(currentSign);
             }
         }
@@ -132,7 +134,7 @@ void GlWidget::createDbColumnString(){
     if(gridX>=0 && gridX<Grid::range && gridY>=0 && gridY<Grid::range){
         a = col[gridX];
         dbColumn = a+QString::number(gridX)+QString::number(gridY);
-        qDebug()<<"dbColumn: "<<dbColumn;
+        //qDebug()<<"dbColumn: "<<dbColumn;
     }
 }
 
@@ -142,14 +144,8 @@ bool GlWidget::deleteAlert(){
     msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
     int ret = msgBox.exec();
     switch(ret){
-      case QMessageBox::Ok:
-          std::cout<<"Ok"<<std::endl;
-          return true;
-          break;
-      case QMessageBox::Cancel:
-          std::cout<<"Cancel"<<std::endl;
-          return false;
-          break;
+      case QMessageBox::Ok: return true; break;
+      case QMessageBox::Cancel: return false; break;
     }
 }
 
@@ -157,7 +153,7 @@ void GlWidget::topMenuText(){
     float x, y;
     QString t;
     y = ((float)HEIGHT*(Grid::high+topMenuLow+Grid::bottom-Grid::top-0.5))/(Grid::range+Grid::high);
-    for(float i=1; i<=(int)Sign::set.size(); i++){
+    for(float i=1; i<=topMax; i++){
         t = QString::number(i);
         x = ((float)WIDTH*((i+topMenuSpacer)/10))/(Grid::high+(-Grid::left+Grid::right));
         glColor3f(1,1,1);

@@ -12,6 +12,7 @@ public:
 
     void topMenu();
     void botMenu();
+    void arrow();
 
     float topMenuLow = .1;
     float topMenuHigh = .2;
@@ -26,6 +27,12 @@ public:
     bool botLeftHover = false;
     bool botRightHover = false;
     bool botBigHover = false;
+    bool leftArrowHover = false;
+    bool rightArrowHover = false;
+
+    int topMax;
+    void setTopMax();
+    int shift = 0;
 };
 
 #endif // MENU_H

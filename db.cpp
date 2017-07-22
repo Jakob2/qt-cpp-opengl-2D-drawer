@@ -24,7 +24,7 @@ void Db::createTable(){
             else qDebug()<<"create column error: "<<query.lastError()<<" / "<<query.lastQuery();
         }
     }
-    if(query.exec("alter table a1 add column name text")) std::cout<<"name column added"<<std::endl;
+    if(query.exec("alter table a1 add column name int")) std::cout<<"name column added"<<std::endl;
     else qDebug()<<"add name column error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
@@ -72,7 +72,7 @@ void Db::addSign(){
 
 void Db::removeSign(QString name){
     QSqlQuery query;
-    if(query.exec("delete from "+dbName+" where name = "+name)) std::cout<<"sign deleted"<<std::endl;
+    if(query.exec("delete from "+dbName+" where name = "+name)) qDebug()<<"sign deleted "<<query.lastQuery();
     else qDebug()<<"delete sign error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
