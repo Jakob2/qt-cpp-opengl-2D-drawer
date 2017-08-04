@@ -18,7 +18,7 @@ public:
     float topMenuLow = .1;
     float topMenuHigh = .2;
     int topMenuSpacer = 2;
-    int topMenuHighlight = 1;
+    int topMenuHighlight = 2;
 
     float botBtnLow = -.3;
     float botBtnHigh = -.1;

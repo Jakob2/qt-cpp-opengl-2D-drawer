@@ -26,6 +26,9 @@ public:
     QString dbNameLarge = "a1";
     QString dbNameMedium = "a2";
     QString dbNameSmall = "a3";
+
+    void setMinSign(QString db);
+    QString minSign;
 };
 
 #endif // DB_H

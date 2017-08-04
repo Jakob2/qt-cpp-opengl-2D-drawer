@@ -112,3 +112,11 @@ void Db::saveSign(QString dbColumn, QString type, QString name, QString db){
     else qDebug()<<"update error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
+void Db::setMinSign(QString db){
+    QSqlQuery query;
+    if(query.exec("select min(name) from "+db)) qDebug()<<"min sign selected"<<query.lastQuery();
+    else qDebug()<<"select min sign error: "<<query.lastError()<<" / "<<query.lastQuery();
+    query.next();
+    minSign = QString::number(query.value(0).toInt());
+}
+

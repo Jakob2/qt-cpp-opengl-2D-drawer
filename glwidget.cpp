@@ -100,6 +100,7 @@ void GlWidget::onTopMenu(QMouseEvent *event){
             if((int)gridX==x && (int)gridY-1==(int)(Grid::high+topMenuLow)*10){
                 std::cout<<"topmenu: "<<x-topMenuSpacer<<std::endl;
                 topMenuHighlight = x;
+                //std::cout<<"HIGH: "<<topMenuHighlight<<std::endl;
                 currentSign = QString::number(Sign::set[x-topMenuSpacer+shift]);
                 setSign(currentSign, dbName);
             }
@@ -147,22 +148,27 @@ void GlWidget::onOverTopMenu(QMouseEvent *event){
     if(event->buttons() == Qt::LeftButton){
         if(((int)gridX>=(int)((Grid::low+0)*10) && (int)gridX<(int)((Grid::high/3)*10))
         && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
+            Grid::split = 1;
             dbName = dbNameLarge,
             setDistinctSigns(dbName);
-            Grid::split = 1;
+            setMinSign(dbName);
         }
         if(((int)gridX>=(int)((Grid::high/3)*10) && (int)gridX<(int)((Grid::high/3*2)*10))
         && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
+            Grid::split = 2;
             dbName = dbNameMedium;
             setDistinctSigns(dbName);
-            Grid::split = 2;
+            setMinSign(dbName);
         }
         if(((int)gridX>=(int)((Grid::high/3*2)*10) && (int)gridX<(int)((Grid::high)*10))
         && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
+            Grid::split = 3;
             dbName = dbNameSmall;
             setDistinctSigns(dbName);
-            Grid::split = 3;
+            setMinSign(dbName);
         }
+        setSign(minSign,dbName);
+        int topMenuHighlight = 2;
         //std::cout<<"OVERTOP x: "<<(Grid::low+0)*10<<" / y: "<<(Grid::high+.3)*10<<std::endl;
     }
 }
