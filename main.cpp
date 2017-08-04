@@ -4,7 +4,6 @@
 
 int WIDTH;
 int HEIGHT;
-int CURRENT_SIGN = 1;
 
 int main(int argc, char *argv[])
 {

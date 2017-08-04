@@ -99,7 +99,7 @@ void GlWidget::onTopMenu(QMouseEvent *event){
         for(int x=topMenuSpacer; x<topMax+topMenuSpacer; x++){
             if((int)gridX==x && (int)gridY-1==(int)(Grid::high+topMenuLow)*10){
                 std::cout<<"topmenu: "<<x-topMenuSpacer<<std::endl;
-                CURRENT_SIGN = x+topMenuSpacer;
+                topMenuHighlight = x;
                 currentSign = QString::number(Sign::set[x-topMenuSpacer+shift]);
                 setSign(currentSign, dbName);
             }

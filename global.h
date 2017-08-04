@@ -19,7 +19,6 @@
 
 extern int WIDTH;
 extern int HEIGHT;
-extern int CURRENT_SIGN;
 
 #endif // GLOBAL_H
 

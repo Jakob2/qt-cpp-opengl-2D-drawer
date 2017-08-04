@@ -10,7 +10,7 @@ void Menu::topMenu(){
         glBegin(GL_POLYGON);
         if(clr) glColor3f(0,0,0.5);
         if(!clr) glColor3f(0,0.5,0);
-        if(x==CURRENT_SIGN-2) glColor3f(.5,.5,0);
+        if(x==topMenuHighlight) glColor3f(.5,.5,0);
         glVertex2f(x/10+0, Grid::high+topMenuLow);
         glVertex2f(x/10+0, Grid::high+topMenuHigh);
         glVertex2f(x/10+.1, Grid::high+topMenuHigh);
