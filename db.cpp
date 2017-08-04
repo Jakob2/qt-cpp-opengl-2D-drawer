@@ -3,8 +3,8 @@
 Db::Db(){
     connectDb();
     //createLargeTable();
-    createMediumTable();
-    createSmallTable();
+    //createMediumTable();
+    //createSmallTable();
     setSign(QString::number(1), dbNameLarge);
     setDistinctSigns(dbNameLarge);
 }
