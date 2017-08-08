@@ -109,16 +109,31 @@ void GlWidget::onTopMenu(QMouseEvent *event){
 }
 
 void GlWidget::onArrow(QMouseEvent *event){
+    int t;
     if(event->buttons() == Qt::LeftButton){
         if((int)gridX==(int)(Grid::low*10) && (int)gridY==(int)((Grid::high+topMenuLow)*10)){
             std::cout<<"left arrow clicked"<<std::endl;
-            if(shift) shift--;
+            if(shift){
+                t = currentSign.toInt();
+                t--;
+                currentSign = QString::number(t);
+                setSign(QString::number(Sign::set[currentSign.toInt()]),dbName);
+                shift--;
+            }
         }
         if((int)(gridX-1)==(int)((Grid::high-.1)*10) && (int)gridY==(int)((Grid::high+topMenuLow)*10)){
             std::cout<<"right arrow clicked, size:"<<Sign::set.size()<<std::endl;
-            if(shift<(int)Sign::set.size()-topMax) shift++;
+            if(shift<(int)Sign::set.size()-topMax){
+                t = currentSign.toInt();
+                t++;
+                currentSign = QString::number(t);
+                setSign(QString::number(Sign::set[currentSign.toInt()]),dbName);
+                shift++;
+            }
         }
     }
+    std::cout<<"CS: "<<Sign::set[currentSign.toInt()]<<std::endl;
+
 }
 
 void GlWidget::onBotMenu(QMouseEvent *event){
@@ -150,7 +165,7 @@ void GlWidget::onBotMenu(QMouseEvent *event){
 
 void GlWidget::onOverTopMenu(QMouseEvent *event){
     if(event->buttons() == Qt::LeftButton){
-        if(((int)gridX>=(int)((Grid::low+0)*10) && (int)gridX<(int)((Grid::high/3)*10))
+        if(((int)gridX>=(int)((Grid::low)*10) && (int)gridX<(int)((Grid::high/3)*10))
         && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
             Grid::split = 1;
             dbName = dbNameLarge,
@@ -192,7 +207,7 @@ void GlWidget::hover(){
     else leftArrowHover = false;
     if((int)(gridX-1)==(int)((Grid::high-.1)*10) && (int)gridY==(int)((Grid::high+topMenuLow)*10)) rightArrowHover = true;
     else rightArrowHover = false;
-    if(((int)gridX>=(int)((Grid::low+0)*10) && (int)gridX<(int)((Grid::high/3)*10))
+    if(((int)gridX>=(int)((Grid::low)*10) && (int)gridX<(int)((Grid::high/3)*10))
     && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
         bigRangeHover = true;
     }

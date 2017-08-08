@@ -7,6 +7,7 @@ Db::Db(){
     //createSmallTable();
     setSign(QString::number(1), dbNameLarge);
     setDistinctSigns(dbNameLarge);
+    setMinSign(dbName);
 }
 
 void Db::connectDb(){

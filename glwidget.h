@@ -37,7 +37,7 @@ private:
     void createDbColumnString();
     QString dbColumn;
 
-    QString currentSign = "1";
+    QString currentSign = "0";
 
     bool deleteAlert();
 
