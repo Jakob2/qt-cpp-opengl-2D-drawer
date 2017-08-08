@@ -135,6 +135,10 @@ void GlWidget::onBotMenu(QMouseEvent *event){
                 removeSign(currentSign, dbName);
                 setDistinctSigns(dbName);
                 setSign(QString::number(Sign::set[0]), dbName);
+                setTopMax();
+                topMenuHighlight = 2;
+                currentSign = "1";
+                shift = 0;
             }
             //std::cout<<"right clicked "<<std::endl;
         }
@@ -153,6 +157,7 @@ void GlWidget::onOverTopMenu(QMouseEvent *event){
             setDistinctSigns(dbName);
             setMinSign(dbName);
             setSign(minSign,dbName);
+            topMenuHighlight = 2;
         }
         if(((int)gridX>=(int)((Grid::high/3)*10) && (int)gridX<(int)((Grid::high/3*2)*10))
         && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
@@ -161,6 +166,7 @@ void GlWidget::onOverTopMenu(QMouseEvent *event){
             setDistinctSigns(dbName);
             setMinSign(dbName);
             setSign(minSign,dbName);
+            topMenuHighlight = 2;
         }
         if(((int)gridX>=(int)((Grid::high/3*2)*10) && (int)gridX<(int)((Grid::high)*10))
         && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
@@ -169,9 +175,8 @@ void GlWidget::onOverTopMenu(QMouseEvent *event){
             setDistinctSigns(dbName);
             setMinSign(dbName);
             setSign(minSign,dbName);
+            topMenuHighlight = 2;
         }
-
-        int topMenuHighlight = 2;
         //std::cout<<"OVERTOP x: "<<(Grid::low+0)*10<<" / y: "<<(Grid::high+.3)*10<<std::endl;
     }
 }
