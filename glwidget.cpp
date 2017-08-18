@@ -172,9 +172,10 @@ void GlWidget::onBotMenu(QMouseEvent *event){
             }
             //std::cout<<"right clicked "<<std::endl;
         }
-        /*if((gridX>=Grid::low && gridX<Grid::high*10) && (gridY>=botBigLow*10 && gridY<botBigHigh*10)){
-            std::cout<<"screene"<<std::endl;
-        }*/
+        if((gridX>=Grid::low && gridX<Grid::high*10) && (gridY>=botBigLow*10 && gridY<botBigHigh*10)){
+            addMaster(dbNameSmall);
+            setMaster(dbNameSmall);
+        }
     }
 }
 
@@ -220,7 +221,10 @@ void GlWidget::onLeftMenu(QMouseEvent *event){
         yy = ((float)i+1)/10;
         //std::cout<<glX<<">"<<0<<"-"<<glX<<"<"<<leftMenuHigh<<" / "<<glY<<">"<<yyy-Grid::top*-1<<"-"<<glY<<"<"<<yy-Grid::top*-1<<std::endl;
         if(event->buttons() == Qt::LeftButton){
-            if((glX>0 && glX<leftMenuHigh) && (glY>yyy-Grid::top*-1 && glY<yy-Grid::top*-1)) std::cout<<"leftmenu "<<i<<std::endl;
+            if((glX>0 && glX<leftMenuHigh) && (glY>yyy-Grid::top*-1 && glY<yy-Grid::top*-1)){
+                masterId = QString::number(i);
+                std::cout<<"leftmenu "<<i<<" - "<<masterId.toInt()<<std::endl;
+            }
         }
     }
 }
