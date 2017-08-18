@@ -101,16 +101,40 @@ void Db::addSign(QString db){
     else qDebug()<<"new sign error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
-void Db::removeSign(QString name, QString db){
+void Db::removeSign(QString name, QString db, QString master){
     QSqlQuery query;
-    if(query.exec("delete from "+db+" where name = "+name)) qDebug()<<"sign deleted "<<query.lastQuery();
+    if(query.exec("delete from "+db+" where name = "+name+" and master = "+master)) qDebug()<<"sign deleted "<<query.lastQuery();
     else qDebug()<<"delete sign error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
-void Db::saveSign(QString dbColumn, QString type, QString name, QString db){
+void Db::saveSign(QString dbColumn, QString type, QString name, QString db, QString master){
     QSqlQuery query;
-    if(query.exec("update "+db+" set "+dbColumn+" = "+type+" where name ="+name)) qDebug()<<"sign updated"<<query.lastQuery();
+    if(query.exec("update "+db+" set "+dbColumn+" = "+type+" where name ="+name+" and master ="+master)) qDebug()<<"sign updated"<<query.lastQuery();
     else qDebug()<<"update error: "<<query.lastError()<<" / "<<query.lastQuery();
+}
+
+void Db::setMaster(QString db){
+    QSqlQuery query;
+    if(query.exec("select distinct master from "+db)) qDebug()<<"master selected"<<query.lastQuery();
+    else qDebug()<<"select master error: "<<query.lastError()<<" / "<<query.lastQuery();
+    while(query.next()){
+        Sign::master.push_back(query.value(0).toInt());
+    }
+    for(int i=0; i<(int)Sign::master.size(); i++){
+        std::cout<<"master set: "<<Sign::master[i]<<std::endl;
+    }
+}
+
+void Db::addMaster(QString db){
+    QString max;
+    QSqlQuery query;
+    if(query.exec("select max(master) from "+db)) qDebug()<<"max master selected"<<query.lastQuery();
+    else qDebug()<<"select max master error: "<<query.lastError()<<" / "<<query.lastQuery();
+    while(query.next()){
+        max = query.value(0).toString();
+    }
+    if(query.exec("insert into "+db+" (master) values("+max+")")) qDebug()<<"master selected"<<query.lastQuery();
+    else qDebug()<<"select master error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
 void Db::setMinSign(QString db){

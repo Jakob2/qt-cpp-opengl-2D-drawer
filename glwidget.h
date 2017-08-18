@@ -25,6 +25,8 @@ private:
     void coords();
     float gridX, gridY;
     void mouseMoveEvent(QMouseEvent *event);
+    void mouseToGrid(float mouseX, float mouseY);
+    float glX, glY;
 
     void mouseHandler(QMouseEvent *event);
     void onGrid(QMouseEvent *event);

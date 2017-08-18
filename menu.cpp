@@ -113,7 +113,8 @@ void Menu::overtopMenu(){
 void Menu::leftMenu(){
     bool clr = false;
     float yy, yyy;
-    for(int y=0; y<3; y++){
+    for(int y=0; y<(int)Sign::master.size(); y++){
+    //for(int y=0; y<4; y++){
         yyy = (float)y/10;
         yy = ((float)y+1)/10;
         if(clr) glColor3f(0,0,0.5);
