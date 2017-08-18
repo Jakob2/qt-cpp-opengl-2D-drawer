@@ -14,7 +14,7 @@ public:
     void botMenu();
     void arrow();
     void overtopMenu();
-    void leftMenu();
+    void leftMenu(int id);
 
     float topMenuLow = .1;
     float topMenuHigh = .2;

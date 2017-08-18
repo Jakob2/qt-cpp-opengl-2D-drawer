@@ -110,21 +110,25 @@ void Menu::overtopMenu(){
     glEnd();
 }
 
-void Menu::leftMenu(){
+void Menu::leftMenu(int id){
     bool clr = false;
-    float yy, yyy;
+    float yy, yyy, width;
     for(int y=0; y<(int)Sign::master.size(); y++){
     //for(int y=0; y<4; y++){
+        width = Grid::left+leftMenuHigh;
         yyy = (float)y/10;
         yy = ((float)y+1)/10;
         if(clr) glColor3f(0,0,0.5);
         if(!clr) glColor3f(0,0.5,0);
-        if(leftMenuHover) glColor3f(0.5,0.5,0);
+        if(y == id){
+            width += 0.02;
+            glColor3f(0.5,0.5,0);
+        }
         glBegin(GL_POLYGON);
         glVertex2f(Grid::left, Grid::high-yyy);
         glVertex2f(Grid::left, Grid::high-yy);
-        glVertex2f(Grid::left+leftMenuHigh, Grid::high-yy);
-        glVertex2f(Grid::left+leftMenuHigh, Grid::high-yyy);
+        glVertex2f(width, Grid::high-yy);
+        glVertex2f(width, Grid::high-yyy);
         glEnd();
         clr == false ? clr = true : clr = false;
     }

@@ -24,7 +24,7 @@ void GlWidget::paintGL(){
     topMenuText();
     botMenuText();
     overtopMenuText();
-    leftMenu();
+    leftMenu(masterId.toInt());
 }
 
 void GlWidget::resizeGL(int w, int h){

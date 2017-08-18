@@ -8,6 +8,7 @@ Db::Db(){
     setSign(QString::number(1), dbNameLarge, masterId);
     setDistinctSigns(dbNameLarge, masterId);
     setMinSign(dbName);
+    setMaster(dbName);
 }
 
 void Db::connectDb(){
