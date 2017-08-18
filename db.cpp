@@ -30,6 +30,8 @@ void Db::createLargeTable(){
     }
     if(query.exec("alter table "+dbNameLarge+" add column name int")) std::cout<<"name column added"<<std::endl;
     else qDebug()<<"add name column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+dbNameLarge+" add column master int")) std::cout<<"master column added"<<std::endl;
+    else qDebug()<<"add master column error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
 void Db::createMediumTable(){
@@ -44,6 +46,8 @@ void Db::createMediumTable(){
     }
     if(query.exec("alter table "+dbNameMedium+" add column name int")) std::cout<<"name column added"<<std::endl;
     else qDebug()<<"add name column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+dbNameMedium+" add column master int")) std::cout<<"master column added"<<std::endl;
+    else qDebug()<<"add master column error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
 void Db::createSmallTable(){
@@ -58,6 +62,8 @@ void Db::createSmallTable(){
     }
     if(query.exec("alter table "+dbNameSmall+" add column name int")) std::cout<<"name column added"<<std::endl;
     else qDebug()<<"add name column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+dbNameSmall+" add column master int")) std::cout<<"master column added"<<std::endl;
+    else qDebug()<<"add master column error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
 void Db::setDistinctSigns(QString db, QString master){
