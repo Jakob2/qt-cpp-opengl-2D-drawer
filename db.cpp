@@ -138,7 +138,7 @@ void Db::addMaster(QString db){
         l++;
         max = QString::number(l);
     }
-    if(query.exec("insert into "+db+" (master) values("+max+")")) qDebug()<<"master selected"<<query.lastQuery();
+    if(query.exec("insert into "+db+" (master, name) values("+max+", '0')")) qDebug()<<"master selected"<<query.lastQuery();
     else qDebug()<<"select master error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
