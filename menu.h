@@ -14,6 +14,7 @@ public:
     void botMenu();
     void arrow();
     void overtopMenu();
+    void leftMenu();
 
     float topMenuLow = .1;
     float topMenuHigh = .2;
@@ -29,6 +30,9 @@ public:
     float overtopLow = .3;
     float overtopHigh = .5;
 
+    float leftMenuLow = 0;
+    float leftMenuHigh = 0.075;
+
     bool botLeftHover = false;
     bool botRightHover = false;
     bool botBigHover = false;
@@ -37,6 +41,7 @@ public:
     bool bigRangeHover = false;
     bool mediumRangeHover = false;
     bool smallRangeHover = false;
+    bool leftMenuHover = false;
 
     int topMax;
     void setTopMax();

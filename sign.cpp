@@ -2,6 +2,7 @@
 
 std::vector<std::vector<std::vector<int>>> Sign::sign;
 std::vector<int> Sign::set;
+std::vector<int> Sign::master;
 
 Sign::Sign(){
     Sign::initSigns();

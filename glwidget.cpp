@@ -24,6 +24,7 @@ void GlWidget::paintGL(){
     topMenuText();
     botMenuText();
     overtopMenuText();
+    leftMenu();
 }
 
 void GlWidget::resizeGL(int w, int h){
@@ -48,6 +49,7 @@ void GlWidget::mousePressEvent(QMouseEvent *event){
 void GlWidget::coords(){
     gridX = floor((10*((Grid::high+(-Grid::left+Grid::right))*mouseX)/WIDTH))-1;
     gridY = Grid::range - floor((10*((Grid::high+(-Grid::bottom+Grid::top))*mouseY)/HEIGHT))+5;
+    //std::cout<<"gridX: "<<gridX<<" / gridY: "<<gridY<<std::endl;
 }
 
 void GlWidget::mouseMoveEvent(QMouseEvent *event){
@@ -194,6 +196,10 @@ void GlWidget::onOverTopMenu(QMouseEvent *event){
         }
         //std::cout<<"OVERTOP x: "<<(Grid::low+0)*10<<" / y: "<<(Grid::high+.3)*10<<std::endl;
     }
+}
+
+void GlWidget::onLeftMenu(QMouseEvent *event){
+
 }
 
 void GlWidget::hover(){

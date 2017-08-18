@@ -32,6 +32,7 @@ private:
     void onArrow(QMouseEvent *event);
     void onBotMenu(QMouseEvent *event);
     void onOverTopMenu(QMouseEvent *event);
+    void onLeftMenu(QMouseEvent *event);
     void hover();
 
     void createDbColumnString();
@@ -43,7 +44,7 @@ private:
 
     QString botLeftText = "Add Sign";
     QString botRightText = "Delete Sign";
-    QString botBigText = "overview";
+    QString botBigText = "Create New Set";
     QString largeText = "Large";
     QString mediumText = "Medium";
     QString smallText = "Small";

@@ -11,6 +11,7 @@ public:
 
     static std::vector<std::vector<std::vector<int>>> sign;
     static std::vector<int> set;
+    static std::vector<int> master;
     static void initSigns();
     void drawSign();
 };

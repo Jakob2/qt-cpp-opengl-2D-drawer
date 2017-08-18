@@ -110,6 +110,25 @@ void Menu::overtopMenu(){
     glEnd();
 }
 
+void Menu::leftMenu(){
+    bool clr = false;
+    float yy, yyy;
+    for(int y=0; y<3; y++){
+        yyy = (float)y/10;
+        yy = ((float)y+1)/10;
+        if(clr) glColor3f(0,0,0.5);
+        if(!clr) glColor3f(0,0.5,0);
+        if(leftMenuHover) glColor3f(0.5,0.5,0);
+        glBegin(GL_POLYGON);
+        glVertex2f(Grid::left, Grid::high-yyy);
+        glVertex2f(Grid::left, Grid::high-yy);
+        glVertex2f(Grid::left+leftMenuHigh, Grid::high-yy);
+        glVertex2f(Grid::left+leftMenuHigh, Grid::high-yyy);
+        glEnd();
+        clr == false ? clr = true : clr = false;
+    }
+}
+
 void Menu::setTopMax(){
     if((int)Sign::set.size()<26) topMax = (int)Sign::set.size();
     else topMax = 26;
