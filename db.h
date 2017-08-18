@@ -14,9 +14,9 @@ public:
     void createLargeTable();
     void createMediumTable();
     void createSmallTable();
-    void setDistinctSigns(QString db);
-    void setSign(QString name, QString db);
-    void addSign(QString db);
+    void setDistinctSigns(QString db, QString master);
+    void setSign(QString name, QString db, QString master);
+    void addSign(QString db, QString master);
     void removeSign(QString name, QString db, QString master);
     void saveSign(QString dbColumn, QString type, QString name, QString db, QString master);
     void setMaster(QString db);

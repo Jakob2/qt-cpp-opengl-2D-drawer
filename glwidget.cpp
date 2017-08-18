@@ -117,7 +117,7 @@ void GlWidget::onTopMenu(QMouseEvent *event){
                 topMenuHighlight = x;
                 //std::cout<<"HIGH: "<<topMenuHighlight<<std::endl;
                 currentSign = QString::number(Sign::set[x-topMenuSpacer+shift]);
-                setSign(currentSign, dbName);
+                setSign(currentSign, dbName, masterId);
             }
         }
     }
@@ -132,7 +132,7 @@ void GlWidget::onArrow(QMouseEvent *event){
                 t = currentSign.toInt();
                 t--;
                 currentSign = QString::number(t);
-                setSign(QString::number(Sign::set[currentSign.toInt()]),dbName);
+                setSign(QString::number(Sign::set[currentSign.toInt()]),dbName, masterId);
                 shift--;
             }
         }
@@ -142,7 +142,7 @@ void GlWidget::onArrow(QMouseEvent *event){
                 t = currentSign.toInt();
                 t++;
                 currentSign = QString::number(t);
-                setSign(QString::number(Sign::set[currentSign.toInt()]),dbName);
+                setSign(QString::number(Sign::set[currentSign.toInt()]),dbName, masterId);
                 shift++;
             }
         }
@@ -155,16 +155,16 @@ void GlWidget::onBotMenu(QMouseEvent *event){
     bool del;
     if(event->buttons() == Qt::LeftButton){
         if((gridX>=Grid::low && gridX<Grid::high/2*10) && (gridY>=botBtnLow*10 && gridY<botBtnHigh*10)){
-            addSign(dbName);
-            setDistinctSigns(dbName);
+            addSign(dbName, masterId);
+            setDistinctSigns(dbName, masterId);
             //std::cout<<"left clicked"<<std::endl;
         }
         if((gridX>=Grid::high/2*10 && gridX<Grid::high*10) && (gridY>botBtnLow*10 && gridY<botBtnHigh*10)){
             del = deleteAlert();
             if(del){
                 removeSign(currentSign, dbName, masterId);
-                setDistinctSigns(dbName);
-                setSign(QString::number(Sign::set[0]), dbName);
+                setDistinctSigns(dbName, masterId);
+                setSign(QString::number(Sign::set[0]), dbName, masterId);
                 setTopMax();
                 topMenuHighlight = 2;
                 currentSign = "1";
@@ -185,27 +185,27 @@ void GlWidget::onOverTopMenu(QMouseEvent *event){
         && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
             Grid::split = 1;
             dbName = dbNameLarge,
-            setDistinctSigns(dbName);
+            setDistinctSigns(dbName, masterId);
             setMinSign(dbName);
-            setSign(minSign,dbName);
+            setSign(minSign,dbName, masterId);
             topMenuHighlight = 2;
         }
         if(((int)gridX>=(int)((Grid::high/3)*10) && (int)gridX<(int)((Grid::high/3*2)*10))
         && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
             Grid::split = 2;
             dbName = dbNameMedium;
-            setDistinctSigns(dbName);
+            setDistinctSigns(dbName, masterId);
             setMinSign(dbName);
-            setSign(minSign,dbName);
+            setSign(minSign,dbName, masterId);
             topMenuHighlight = 2;
         }
         if(((int)gridX>=(int)((Grid::high/3*2)*10) && (int)gridX<(int)((Grid::high)*10))
         && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
             Grid::split = 3;
             dbName = dbNameSmall;
-            setDistinctSigns(dbName);
+            setDistinctSigns(dbName, masterId);
             setMinSign(dbName);
-            setSign(minSign,dbName);
+            setSign(minSign,dbName, masterId);
             topMenuHighlight = 2;
             setMaster(dbName);
         }
@@ -223,7 +223,9 @@ void GlWidget::onLeftMenu(QMouseEvent *event){
         if(event->buttons() == Qt::LeftButton){
             if((glX>0 && glX<leftMenuHigh) && (glY>yyy-Grid::top*-1 && glY<yy-Grid::top*-1)){
                 masterId = QString::number(i);
-                std::cout<<"leftmenu "<<i<<" - "<<masterId.toInt()<<std::endl;
+                setDistinctSigns(dbName, masterId);
+                setSign(minSign,dbName, masterId);
+                //std::cout<<"leftmenu "<<i<<" - "<<masterId.toInt()<<std::endl;
             }
         }
     }

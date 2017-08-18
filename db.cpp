@@ -5,8 +5,8 @@ Db::Db(){
     //createLargeTable();
     //createMediumTable();
     //createSmallTable();
-    setSign(QString::number(1), dbNameLarge);
-    setDistinctSigns(dbNameLarge);
+    setSign(QString::number(1), dbNameLarge, masterId);
+    setDistinctSigns(dbNameLarge, masterId);
     setMinSign(dbName);
 }
 
@@ -59,24 +59,24 @@ void Db::createSmallTable(){
     else qDebug()<<"add name column error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
-void Db::setDistinctSigns(QString db){
+void Db::setDistinctSigns(QString db, QString master){
     Sign::set.clear();
     QSqlQuery query;
-    if(query.exec("select distinct name from "+db)) std::cout<<"distinct signs selected"<<std::endl;
+    if(query.exec("select distinct name from "+db+" where master = "+master)) std::cout<<"distinct signs selected"<<std::endl;
     else qDebug()<<"select distinct signs error: "<<query.lastError()<<" / "<<query.lastQuery();
     while(query.next()){
         Sign::set.push_back(query.value(0).toInt());
     }
 }
 
-void Db::setSign(QString name, QString db){
+void Db::setSign(QString name, QString db, QString master){
     Sign::sign.clear();
     Sign::initSigns();
     int index, c;
     index = 0;
     c = 1;
     QSqlQuery query;
-    if(query.exec("select * from "+db+" where name = "+name)) qDebug()<<"sign selected "<<query.lastQuery();
+    if(query.exec("select * from "+db+" where name = "+name+" and master = "+master)) qDebug()<<"sign selected "<<query.lastQuery();
     else qDebug()<<"select sign error: "<<query.lastError()<<" / "<<query.lastQuery();
     while(query.next()){
         for(int x=0; x<Grid::range/Grid::split; x++){
@@ -89,7 +89,7 @@ void Db::setSign(QString name, QString db){
     index++;
 }
 
-void Db::addSign(QString db){
+void Db::addSign(QString db, QString master){
     int name;
     QSqlQuery query;
     if(query.exec("select max(name) from "+db)) std::cout<<"max sign name selected"<<std::endl;
@@ -97,7 +97,7 @@ void Db::addSign(QString db){
     while(query.next()){
         name = query.value(0).toInt()+1;
     }
-    if(query.exec("insert into "+dbName+" (name) values ("+QString::number(name)+")")) std::cout<<"new sign inserted"<<std::endl;
+    if(query.exec("insert into "+dbName+" (name, master) values ("+QString::number(name)+", "+master+")")) std::cout<<"new sign inserted"<<std::endl;
     else qDebug()<<"new sign error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
@@ -114,24 +114,28 @@ void Db::saveSign(QString dbColumn, QString type, QString name, QString db, QStr
 }
 
 void Db::setMaster(QString db){
+    Sign::master.clear();
     QSqlQuery query;
     if(query.exec("select distinct master from "+db)) qDebug()<<"master selected"<<query.lastQuery();
     else qDebug()<<"select master error: "<<query.lastError()<<" / "<<query.lastQuery();
     while(query.next()){
         Sign::master.push_back(query.value(0).toInt());
     }
-    for(int i=0; i<(int)Sign::master.size(); i++){
+    /*for(int i=0; i<(int)Sign::master.size(); i++){
         std::cout<<"master set: "<<Sign::master[i]<<std::endl;
-    }
+    }*/
 }
 
 void Db::addMaster(QString db){
+    int l;
     QString max;
     QSqlQuery query;
     if(query.exec("select max(master) from "+db)) qDebug()<<"max master selected"<<query.lastQuery();
     else qDebug()<<"select max master error: "<<query.lastError()<<" / "<<query.lastQuery();
     while(query.next()){
-        max = query.value(0).toString();
+        l = query.value(0).toInt();
+        l++;
+        max = QString::number(l);
     }
     if(query.exec("insert into "+db+" (master) values("+max+")")) qDebug()<<"master selected"<<query.lastQuery();
     else qDebug()<<"select master error: "<<query.lastError()<<" / "<<query.lastQuery();
