@@ -173,8 +173,8 @@ void GlWidget::onBotMenu(QMouseEvent *event){
             //std::cout<<"right clicked "<<std::endl;
         }
         if((gridX>=Grid::low && gridX<Grid::high*10) && (gridY>=botBigLow*10 && gridY<botBigHigh*10)){
-            addMaster(dbNameSmall);
-            setMaster(dbNameSmall);
+            addMaster(dbName);
+            setMaster(dbName);
         }
     }
 }
@@ -189,6 +189,7 @@ void GlWidget::onOverTopMenu(QMouseEvent *event){
             setMinSign(dbName);
             setSign(minSign,dbName, masterId);
             topMenuHighlight = 2;
+            setMaster(dbName);
         }
         if(((int)gridX>=(int)((Grid::high/3)*10) && (int)gridX<(int)((Grid::high/3*2)*10))
         && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
@@ -198,6 +199,7 @@ void GlWidget::onOverTopMenu(QMouseEvent *event){
             setMinSign(dbName);
             setSign(minSign,dbName, masterId);
             topMenuHighlight = 2;
+            setMaster(dbName);
         }
         if(((int)gridX>=(int)((Grid::high/3*2)*10) && (int)gridX<(int)((Grid::high)*10))
         && ( (int)gridY>=(int)(((Grid::high+overtopLow)*10)) && (int)gridY<(int)(((Grid::high+overtopHigh)*10)))){
